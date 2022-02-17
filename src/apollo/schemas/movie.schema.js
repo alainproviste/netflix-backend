@@ -5,20 +5,20 @@ module.exports = gql`
         id: ID
         title: String
         description: String
+        producer: String
+        actors: [String]
         duration: String
         img: String
+        iframe: String
         categories: [Categorie]
     }
-    input CategorieInput {
-        id: String
-        name: String
-    }
     type Query {
-        getMovies:[Movie]
+        getMovies(limit: Int!):[Movie]
         getMovie(id:ID):Movie!
     }
     type Mutation {
-        createMovie(title:String!,description: String,duration:String, img:String, categories: [CategorieInput]):Movie
-        updateMovie(id:ID!,title:String!,description: String,duration:String, img:String, categories: [CategorieInput]):Movie
+        createMovie(title:String!,description: String, producer: String, actors: [String],duration:String, img:String, iframe: String, categories: [ID]):Movie
+        updateMovie(id:ID!,title:String!,description: String, producer: String, actors: [String],duration:String, img:String, iframe: String, categories: [ID]):Movie
+        deleteMovie(id:ID!): Movie
     }
 `

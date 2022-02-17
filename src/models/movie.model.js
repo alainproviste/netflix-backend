@@ -10,11 +10,22 @@ const movieSchema = new Schema({
         type: String,
         required: true
     },
+    producer: {
+        type: String,
+        required: true
+    },
+    actors: [{
+        type: String
+    }],
     duration: {
         type: String,
         required: true
     },
     img: {
+        type: String,
+        required: true
+    },
+    iframe: {
         type: String,
         required: true
     },
