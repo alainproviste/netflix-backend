@@ -6,10 +6,10 @@ const WishlistSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    movie: {
+    movie: [{
         type: Schema.Types.ObjectId,
         ref: 'Movie'
-    }
+    }]
 })
 
 module.exports = mongoose.model('Wishlist', WishlistSchema);
