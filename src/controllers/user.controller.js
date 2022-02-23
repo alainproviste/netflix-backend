@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const configs = require("../configs");
+var nodemailer = require('nodemailer');
 
 exports.register = (req, res) => {
   let hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -10,6 +11,14 @@ exports.register = (req, res) => {
     email: req.body.email,
     isAdmin: false,
     password: hashedPassword
+  });
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'fullstacknetflixremi@gmail.com',
+      pass: 'P@ssword1234'
+    }
   });
 
   user
@@ -25,6 +34,19 @@ exports.register = (req, res) => {
           expiresIn: 86400,
         }
       );
+      var mailOptions = {
+        from: 'fullstacknetflixremi@gmail.com',
+        to: data.email,
+        subject: 'Created account confirmation',
+        text: 'That was easy!'
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          res.status(500).send({
+            message: error || "Some error occured",
+          });
+        }
+      });
       res.status(200).send({
         auth: true,
         token: userToken,

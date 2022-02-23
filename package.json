@@ -20,6 +20,7 @@
     "graphql": "^15.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.17",
+    "nodemailer": "^6.7.2",
     "stripe": "^8.197.0"
   },
   "devDependencies": {

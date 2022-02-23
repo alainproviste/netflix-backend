@@ -11,7 +11,7 @@ module.exports = gql`
         getCategorie(id:ID):Categorie!
     }
     extend type Mutation {
-        createCategorie(name:String!):Categorie
-        updateCategorie(id:ID!,name:String!):Categorie
+        createCategorie(name:String!, movies: [ID]):Categorie
+        updateCategorie(id:ID!,name:String!, movies: [ID]):Categorie
     }
 `

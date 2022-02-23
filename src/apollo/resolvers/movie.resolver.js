@@ -5,13 +5,11 @@ module.exports = {
         getMovies: () => {
             return Movie.find()
                 .populate("categories")
-                .clone()
-                .catch((err) => console.log(err));;
+                .catch((err) => console.log(err));
         },
         getMovie(parent, args, context) {
             return Movie.findById(args.id)
                 .populate("categories")
-                .clone()
                 .catch((err) => console.log(err));
         }
     },
@@ -21,6 +19,7 @@ module.exports = {
                 {
                     title: args.title,
                     description: args.description,
+                    year: args.year,
                     producer: args.producer,
                     actors: args.actors,
                     duration: args.duration,
@@ -31,8 +30,8 @@ module.exports = {
             )
             return newMovie.save();
         },
-        updateMovie(parent, {id, title, description, producer, actors, duration, img, iframe, categories}) {
-            return Movie.findByIdAndUpdate(id, { title: title, description: description, producer: producer, actors: actors, duration: duration, img: img, iframe: iframe, categories: categories });
+        updateMovie(parent, {id, title, description, year, producer, actors, duration, img, iframe, categories}) {
+            return Movie.findByIdAndUpdate(id, { title: title, description: description, year: year, producer: producer, actors: actors, duration: duration, img: img, iframe: iframe, categories: categories });
         },
         deleteMovie(parents, { id }) {
             return Movie.findByIdAndRemove(id);

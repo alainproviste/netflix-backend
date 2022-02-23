@@ -10,6 +10,10 @@ const movieSchema = new Schema({
         type: String,
         required: true
     },
+    year: {
+        type: String,
+        required: true
+    },
     producer: {
         type: String,
         required: true
