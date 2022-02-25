@@ -11,6 +11,17 @@ module.exports = {
             return Movie.findById(args.id)
                 .populate("categories")
                 .catch((err) => console.log(err));
+        },
+        getRandomMovie: () => {
+            return Movie.count()
+            .then((count) => {
+                var random = Math.floor(Math.random() * count);
+                return Movie.findOne().skip(random).populate("categories")
+                    .then((data) => {
+                        console.log(data);
+                        return data;
+                    })
+            }).catch((err) => console.log(err));
         }
     },
     Mutation: {

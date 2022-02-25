@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^8.5.1",
+    "mathjs": "^10.1.1",
     "mongoose": "^5.11.17",
     "nodemailer": "^6.7.2",
     "stripe": "^8.197.0"
