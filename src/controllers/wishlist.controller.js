@@ -1,4 +1,4 @@
-const Wishlist = require("../models/Wishlist.model");
+const Wishlist = require("../models/wishlist.model");
 
 exports.getWishlist = (req, res) => {
   Wishlist.findOne({ user: req.body.user })
