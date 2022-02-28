@@ -6,7 +6,7 @@ const categorieRouter = require('./categories.route');
 const checkoutRouter = require('./checkout.route');
 
 router.use('/users/', usersRouter);
-router.use('/Wishlists/', WishlistsRouter);
+router.use('/Wishlists/', wishlistsRouter);
 router.use('/categorie/', categorieRouter); 
 router.use(checkoutRouter);
 
