@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usersRouter = require('./users.route');
-const WishlistsRouter = require('./Wishlists.route');
+const wishlistsRouter = require('./wishlists.route');
 const categorieRouter = require('./categories.route');
 const checkoutRouter = require('./checkout.route');
 
