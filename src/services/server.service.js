@@ -48,7 +48,7 @@ const graphQlServer = new ApolloServer({
 });
 graphQlServer.applyMiddleware({ app, path: "/graphql" });
 
-app.use("*", cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/v1/", apiRouter);
 
