@@ -29,7 +29,7 @@ const graphQlServer = new ApolloServer({
           userId:decodedToken.id
         };        
       }
-      catch {
+      catch (e){
         return {
           auth: false,
           token: null,
