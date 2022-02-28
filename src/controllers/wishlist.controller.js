@@ -2,35 +2,83 @@ const Wishlist = require("../models/Wishlist.model");
 
 exports.getWishlist = (req, res) => {
   Wishlist.findOne({ user: req.body.user })
-  .populate('movies')
   .then((data) => {
-      res.send(data);
-  })
-  .catch((err) => {
-    res.status(500).send({
+    if(!data){
+      res.status(500).send({
         error: 500,
-        message: err.message || "some error occured while getting wishlist"
-    })
+        message: "Vous n'avez pas encore de film dans votre liste !"
+      })
+    }else{
+      Wishlist.findOne({ user: req.body.user })
+      .populate('movies')
+      .then((data) => {
+          res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+            error: 500,
+            message: err.message || "some error occured while getting wishlist"
+        })
+      })
+    }
+  }
+)};
+
+exports.inWishlist = (req, res) => {
+  Wishlist.findOne({ user: req.body.user })
+  .then((data) => {
+    if(data){
+      var previousMovies = data.movie;
+      if(previousMovies && previousMovies.includes(req.body.movie)){
+        res.send({
+          inWishlist: true
+        });
+      }else{
+        res.send({
+          inWishlist: false
+        });
+      }
+    }else{
+      res.send({
+        inWishlist: false
+      });
+    }
   })
 };
 
-exports.deleteWishlist = (req, res) => {
+exports.removeWish = (req, res) => {
   Wishlist.findOneAndUpdate(
       { user: req.body.user },
-      { $pull: {movies: req.body.movies }}
+      { $pull: {movie: req.body.movie }}
   )
   .then((data) => {
       res.send({
-          data: data
+        data: data
       })
   })
   .catch((err) => {
       res.status(500).send({
           error: 500,
-          message: err.message || "some error occured while creating removing a wish from wishlist"
+          message: err.message || "some error occured while removing a wish from wishlist"
       })
   })
 };
+
+exports.deleteWishlist = (req, res) => {
+  Wishlist.findByIdAndDelete(req.body.wishlistId)
+  .then(() => {
+    res.send({
+        delete: true
+    })
+  })
+  .catch((err) => {
+      console.log(err.message);
+      res.status(500).send({
+          error: 500,
+          message: err.message || "NULL"
+      })
+  });
+}
 
 exports.addWishlist = (req, res) => {
   Wishlist.findOne({ user: req.body.user})
@@ -40,7 +88,6 @@ exports.addWishlist = (req, res) => {
         user: req.body.user,
         movie: req.body.movie
       });
-      console.log(req.body.movies);
       wishlist
         .save()
         .then((data) => {
@@ -57,15 +104,15 @@ exports.addWishlist = (req, res) => {
           })
       })
     }else{
-      var previousMovies = data.movies;
-      if(previousMovies && previousMovies.includes(req.body.movies)){
+      var previousMovies = data.movie;
+      if(previousMovies && previousMovies.includes(req.body.movie)){
         res.send({
           message: "This movie is already in this wishlist !"
         });
       }else{
         Wishlist.findOneAndUpdate(
           { user: req.body.user },
-          { movies: [...previousMovies.movies, req.body.movies] }
+          { $push: { movie: req.body.movie } }
         )
         .then((data) => {
           res.send({

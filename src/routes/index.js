@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const usersRouter = require('./users.route');
 const WishlistsRouter = require('./Wishlists.route');
+const categorieRouter = require('./categories.route');
+const checkoutRouter = require('./checkout.route');
 
 router.use('/users/', usersRouter);
 router.use('/Wishlists/', WishlistsRouter);
+router.use('/categorie/', categorieRouter); 
+router.use(checkoutRouter);
 
 module.exports = router;

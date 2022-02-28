@@ -5,11 +5,16 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js ",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "babel -d ./build ./src"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "apollo-server": "^3.3.0",
     "apollo-server-express": "^2.25.3",
     "bcrypt": "^5.0.1",

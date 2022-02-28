@@ -18,7 +18,6 @@ module.exports = {
                 var random = Math.floor(Math.random() * count);
                 return Movie.findOne().skip(random).populate("categories")
                     .then((data) => {
-                        console.log(data);
                         return data;
                     })
             }).catch((err) => console.log(err));
