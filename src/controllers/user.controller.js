@@ -37,8 +37,8 @@ exports.register = (req, res) => {
       var mailOptions = {
         from: 'fullstacknetflixremi@gmail.com',
         to: data.email,
-        subject: 'Created account confirmation',
-        text: 'That was easy!'
+        subject: 'Confirmation création de compte',
+        text: "Création d'un compte sur le netflix le plus éclaté réalisé avec succès !"
       };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
@@ -89,7 +89,6 @@ exports.login = (req, res) => {
 };
 
 exports.getUser = (req, res) => {
-  console.log(req.user);
   User.findById(req.user.id)
       .then((user) => {
           console.log(user);
@@ -98,11 +97,32 @@ exports.getUser = (req, res) => {
     .catch((err) => res.status(404).send(err));
 };
 
-exports.updateUser = (req, res) => {
-  User.findByIdAndUpdate(req.user.id, req.body, {
-    new: true,
+exports.subscriptionUser = (req, res) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'fullstacknetflixremi@gmail.com',
+      pass: 'P@ssword1234'
+    }
+  });
+
+  User.findByIdAndUpdate(req.body.user, {
+    subscription: req.body.subscription
   })
     .then((data) => {
+      var mailOptions = {
+        from: 'fullstacknetflixremi@gmail.com',
+        to: data.email,
+        subject: 'Abonnement netflix trop nul',
+        text: "Vous vous etes abonné à un netflix clandestin tout nul avec un abonnement "+ req.body.subscription + "!"
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          res.status(500).send({
+            message: error || "Some error occured",
+          });
+        }
+      });
       res.send({ user: data });
     })
     .catch((err) => res.status(500).json({ err: err }));

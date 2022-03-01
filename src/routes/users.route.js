@@ -7,6 +7,6 @@ router.get('/user', verifyToken, userController.getUser);
 router.get('/verifytoken',verifyToken, userController.verifyToken);
 router.post('/register', userController.register);
 router.post('/login', userController.login);
-router.put('/updateUser',verifyToken, userController.updateUser);
+router.put('/updateUser',verifyToken, userController.subscriptionUser);
 
 module.exports = router;

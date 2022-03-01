@@ -9,7 +9,6 @@ const initiateStripeSession = async (req) => {
     });
   
     const result = prices.data.find((e) => e.lookup_key == req.body.subscription);
-    console.log(result);
 
     const session = await stripe.checkout.sessions.create({
         billing_address_collection: 'auto',
