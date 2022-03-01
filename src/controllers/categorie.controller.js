@@ -1,14 +1,14 @@
 const Categorie = require("../models/categorie.model");
 
 exports.createCategorie = (req, res) => {
-    const categorie = new Movie({
+    const categorie = new Categorie({
         name: req.body.name
     });
 
     categorie.save()
     .then((data) => {
         res.send({
-            movie: data,
+            categorie: data,
             created: true
         })
     })

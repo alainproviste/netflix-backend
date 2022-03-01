@@ -33,6 +33,11 @@ const movieSchema = new Schema({
         type: String,
         required: true
     },
+    new: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Categorie'
